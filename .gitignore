@@ -1,0 +1,14 @@
+# Django / local files
+db.sqlite3
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+
+# macOS
+.DS_Store
