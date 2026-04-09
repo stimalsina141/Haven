@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post - Haven</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F0FDFA; /* light mint */
+            color: #0F172A; /* navy text */
+        }
+
+        h2 {
+            margin: 0 0 8px 0;
+            font-size: 30px;
+        }
+
+        .muted {
+            color: #475569;
+            font-size: 14px;
+            margin: 0 0 18px 0;
+        }
+
+        .card {
+            background: #FFFFFF;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #CFFAFE;
+            box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+        }
+
+        /* Make Django's form.as_p output look consistent */
+        form p {
+            margin: 0 0 14px 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 0;
+            border: 1px solid rgba(15, 23, 42, 0.20);
+            border-radius: 12px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            color: #0F172A;
+            font-size: 15px;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #0b87a6;
+            box-shadow: 0 0 0 3px rgba(11, 135, 166, 0.18);
+        }
+
+        button, .btn {
+            background: #0b87a6;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        button:hover, .btn:hover {
+            background: #0a7893;
+        }
+
+        .actions {
+            margin-top: 14px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.6);
+            color: #0F172A;
+            border: 1px solid rgba(15, 23, 42, 0.25);
+            padding: 10px 14px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(15, 23, 42, 0.06);
+        }
+
+        .errors {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #991B1B;
+            padding: 12px 14px;
+            border-radius: 12px;
+            margin-bottom: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Share Anonymously</h2>
+    <p class="muted">Your post will be shown with a randomly generated username.</p>
+
+    <div class="card">
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="errors">
+                    Please fix the errors below and try again.
+                </div>
+            {% endif %}
+
+            {{ form.as_p }}
+
+            <div class="actions">
+                <button type="submit">Post Anonymously</button>
+                <a class="btn secondary" href="{% url 'home' %}">Back to Feed</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
