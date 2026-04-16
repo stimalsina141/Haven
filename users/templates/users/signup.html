@@ -1,15 +1,194 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Sign Up - Haven</title>
+    <title>Haven - Create Account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #F0FDFA; /* light mint */
+            color: #0F172A; /* navy text */
+        }
+
+        .header {
+            background-color: #0b87a6;
+            padding: 18px 20px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            color: #0F172A;
+            border: 1px solid #5EEAD4;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 36px;
+            line-height: 1.1;
+        }
+
+        .header p {
+            margin: 10px 0 0;
+            font-size: 15px;
+        }
+
+        .header a {
+            color: #0F172A;
+            font-weight: 700;
+        }
+
+        .card {
+            background: #FFFFFF;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            border: 1px solid #CFFAFE;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .muted {
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+            margin: 12px 0 6px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 14px;
+            border: 1px solid #CBD5E1;
+            padding: 12px 12px;
+            font-size: 15px;
+            line-height: 1.5;
+            outline: none;
+            background: #FFFFFF;
+        }
+
+        input:focus {
+            border-color: #0b87a6;
+            box-shadow: 0 0 0 3px rgba(11, 135, 166, 0.15);
+        }
+
+        .btn {
+            background: #0b87a6;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 8px;
+            margin-top: 12px;
+            font-weight: 700;
+        }
+
+        .btn:hover {
+            background: #0a7893;
+        }
+
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.6);
+            color: #0F172A;
+            border: 1px solid rgba(15, 23, 42, 0.25);
+            padding: 8px 12px;
+            border-radius: 999px;
+            margin-top: 12px;
+            font-weight: 700;
+        }
+
+        .btn.secondary:hover {
+            background: rgba(15, 23, 42, 0.06);
+        }
+
+        .error-box {
+            background: #FEF2F2;
+            border: 1px solid #FCA5A5;
+            color: #991B1B;
+            padding: 10px 12px;
+            border-radius: 12px;
+            margin: 10px 0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        ul.errorlist {
+            margin: 8px 0 0;
+            padding-left: 18px;
+            color: #991B1B;
+            font-size: 13px;
+        }
+    </style>
 </head>
 <body>
-    <h2>Sign Up for Haven</h2>
-    <form method = "POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type = "submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href = "{% url 'login' %}">Login</a></p>
+    <div class="header">
+        <h1>Haven</h1>
+        <p>Anonymous Peer Support Platform</p>
+        <p>
+            <a href="{% url 'home' %}">← Back </a>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Create account</h2>
+        <p class="muted">Join Haven to post and reply supportively.</p>
+
+        {% if form.non_field_errors %}
+            <div class="error-box">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+
+            {% if form.email %}
+                <label for="{{ form.email.id_for_label }}">Email</label>
+                {{ form.email }}
+                {{ form.email.errors }}
+            {% endif %}
+
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+
+            <label for="{{ form.password2.id_for_label }}">Confirm password</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+
+            <div class="actions">
+                <button class="btn" type="submit">Create account</button>
+                <a class="btn secondary" href="{% url 'login' %}">Already have an account?</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

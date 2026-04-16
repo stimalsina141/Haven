@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Haven - Delete Reply</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #F0FDFA; color: #0F172A; }
+        .header { background-color:#0b87a6; padding:18px 20px; border-radius:14px; margin-bottom:18px; color:#0F172A; border:1px solid #5EEAD4; box-shadow:0 8px 18px rgba(15,23,42,0.08); }
+        .header h1 { margin:0; font-size:36px; line-height:1.1; }
+        .header p { margin:10px 0 0; font-size:15px; }
+        .header a { color:#0F172A; font-weight:700; }
+        .card { background:#fff; padding:18px; margin-bottom:14px; border-radius:14px; border:1px solid #CFFAFE; box-shadow:0 2px 10px rgba(15,23,42,0.06); }
+        h2 { margin:0 0 10px; font-size:28px; }
+        .muted { color:#475569; font-size:13px; line-height:1.6; margin-top:0; }
+        .preview { margin-top:12px; padding:14px; border-radius:14px; border:1px solid #E2E8F0; background:#fff; white-space:pre-wrap; line-height:1.6; }
+        .btn { background:#0b87a6; color:#fff; padding:10px 16px; border:none; border-radius:12px; cursor:pointer; text-decoration:none; display:inline-block; margin-right:8px; margin-top:8px; font-weight:700; }
+        .btn:hover { background:#0a7893; }
+        .btn.secondary { background:rgba(255,255,255,0.6); color:#0F172A; border:1px solid rgba(15,23,42,0.25); padding:8px 12px; border-radius:999px; margin-top:0; font-weight:700; }
+        .btn.secondary:hover { background:rgba(15,23,42,0.06); }
+        .btn.danger { background:#dc2626; }
+        .btn.danger:hover { background:#b91c1c; }
+        .actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:14px; }
+        .warning { background:#FEF2F2; border:1px solid #FCA5A5; color:#991B1B; padding:10px 12px; border-radius:12px; font-size:13px; line-height:1.5; margin-top:10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Haven</h1>
+        <p>Anonymous Peer Support Platform</p>
+        {% if user.is_authenticated %}
+            <p>Welcome, <strong>{{ user.username }}</strong> | <a href="{% url 'logout' %}">Logout</a></p>
+        {% endif %}
+    </div>
+
+    <a href="{% url 'post_detail' comment.post.id %}" class="btn secondary">← Back to post</a>
+
+    <div class="card">
+        <h2>Delete this reply?</h2>
+        <p class="muted">This cannot be undone.</p>
+
+        <div class="warning">Make sure you really want to delete this reply.</div>
+
+        <div class="preview">{{ comment.content }}</div>
+
+        <form method="POST" class="actions">
+            {% csrf_token %}
+            <button type="submit" class="btn danger">Yes, delete</button>
+            <a class="btn secondary" href="{% url 'post_detail' comment.post.id %}">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>
