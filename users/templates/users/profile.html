@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Haven - My Profile</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #F0FDFA;
+            color: #0F172A;
+        }
+        .header {
+            background-color: #0b87a6;
+            padding: 18px 20px;
+            border-radius: 14px;
+            margin-bottom: 18px;
+            color: #0F172A;
+            border: 1px solid #5EEAD4;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.08);
+        }
+        .header h1 { margin: 0; font-size: 36px; line-height: 1.1; }
+        .header p { margin: 10px 0 0; font-size: 15px; }
+        .header a { color: #0F172A; font-weight: 700; }
+
+        .card {
+            background: #fff;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            border: 1px solid #CFFAFE;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+        }
+        .muted { color: #475569; font-size: 13px; line-height: 1.6; margin: 0; }
+
+        .post {
+            background: #FFFFFF;
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 14px;
+            border: 1px solid #CFFAFE;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .post-header {
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .category {
+            background: #0b87a6;
+            display: inline-block;
+            padding: 6px 10px;
+            color: white;
+            border-radius: 999px;
+            font-size: 12px;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+        .post-content {
+            margin: 10px 0 0;
+            white-space: pre-wrap;
+            color: #0F172A;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .btn {
+            background: #0b87a6;
+            color: white;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 8px;
+            margin-top: 8px;
+            font-weight: 700;
+        }
+        .btn:hover { background: #0a7893; }
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.6);
+            color: #0F172A;
+            border: 1px solid rgba(15, 23, 42, 0.25);
+            padding: 8px 12px;
+            border-radius: 999px;
+            margin-top: 0;
+            font-weight: 700;
+        }
+        .btn.secondary:hover { background: rgba(15, 23, 42, 0.06); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Haven</h1>
+        <p>My Profile</p>
+        <p>
+            <a href="{% url 'home' %}">← Back to home</a> |
+            <a href="{% url 'logout' %}">Logout</a>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2 style="margin:0 0 6px;">{{ user.username }}</h2>
+        <p class="muted">Member since: {{ user.date_joined|date:"M d, Y" }}</p>
+        {% if user.email %}
+            <p class="muted">Email: {{ user.email }}</p>
+        {% endif %}
+        <p class="muted" style="margin-top:10px;">
+            Posts you’ve created: <strong>{{ my_posts|length }}</strong>
+        </p>
+        <a class="btn" href="{% url 'create_post' %}">Create a post</a>
+    </div>
+
+    <div class="card">
+        <h2 style="margin:0 0 6px;">My posts</h2>
+        <p class="muted">Click a post to view replies.</p>
+    </div>
+
+    {% if my_posts %}
+        {% for post in my_posts %}
+            <a class="post" href="{% url 'post_detail' post.id %}">
+                <div class="post-header">
+                    <div>
+                        <strong>{{ post.anonymous_username }}</strong> • {{ post.created_at|date:"M d, Y" }}
+                    </div>
+                    <span class="category">{{ post.get_category_display }}</span>
+                </div>
+                <div class="post-content">{{ post.content|truncatechars:280 }}</div>
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p class="muted">You haven’t posted yet.</p>
+            <a class="btn" href="{% url 'create_post' %}">Create your first post</a>
+        </div>
+    {% endif %}
+</body>
+</html>

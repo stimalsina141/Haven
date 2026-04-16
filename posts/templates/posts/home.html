@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Haven - Anonymous Peer Support</title>
+    <title>Haven - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -38,7 +39,7 @@
             font-weight: 700;
         }
 
-        .post {
+        .card, .post {
             background: #FFFFFF;
             padding: 18px;
             margin-bottom: 14px;
@@ -47,37 +48,20 @@
             box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
         }
 
-        .post-header {
-            font-size: 12px;
-            color: #475569;
+        h2 {
+            margin-top: 0;
             margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
+            font-size: 28px;
         }
 
-        .post-content {
-            margin: 10px 0 0;
-            white-space: pre-wrap;
-            color: #0F172A;
+        .muted {
+            color: #475569;
+            font-size: 13px;
             line-height: 1.6;
-            font-size: 16px;
+            margin: 0;
         }
 
-        .category {
-            background: #0b87a6;
-            display: inline-block;
-            padding: 6px 10px;
-            color: white;
-            border-radius: 999px;
-            font-size: 12px;
-            white-space: nowrap;
-            font-weight: 700;
-        }
-
-        button, .btn {
+        .btn {
             background: #0b87a6;
             color: white;
             padding: 10px 16px;
@@ -91,9 +75,7 @@
             font-weight: 700;
         }
 
-        button:hover, .btn:hover {
-            background: #0a7893;
-        }
+        .btn:hover { background: #0a7893; }
 
         .btn.secondary {
             background: rgba(255, 255, 255, 0.6);
@@ -105,83 +87,100 @@
             font-weight: 700;
         }
 
-        .btn.secondary:hover {
-            background: rgba(15, 23, 42, 0.06);
+        .btn.alt {
+            background: rgba(94, 234, 212, 0.35);     /* mint tint */
+            color: #0F172A;
+            border: 1px solid rgba(94, 234, 212, 0.95);
+            padding: 8px 12px;
+            border-radius: 999px;
+            margin-top: 0;
+            font-weight: 700;
         }
 
-        .filters {
-            margin: 16px 0 22px;
+        .btn.alt:hover {
+            background: rgba(94, 234, 212, 0.55);
+        }
+
+        .btn.secondary:hover { background: rgba(15, 23, 42, 0.06); }
+
+        .pill-row {
             display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.2);
+            background: rgba(255, 255, 255, 0.7);
+            color: #0F172A;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .pill.active {
+            border-color: rgba(94, 234, 212, 1);
+            background: rgba(94, 234, 212, 0.35);
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        @media (max-width: 720px) {
+            .two-col { grid-template-columns: 1fr; }
+        }
+
+        .post-header {
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
             gap: 10px;
             flex-wrap: wrap;
         }
 
-        .filters strong {
-            margin-right: 6px;
+        .category {
+            background: #0b87a6;
+            display: inline-block;
+            padding: 6px 10px;
+            color: white;
+            border-radius: 999px;
+            font-size: 12px;
+            white-space: nowrap;
+            font-weight: 700;
+        }
+
+        .post-content {
+            margin: 10px 0 0;
+            white-space: pre-wrap;
             color: #0F172A;
-        }
-
-        h2 {
-            margin-top: 10px;
-            margin-bottom: 14px;
-            font-size: 28px;
-        }
-
-        /* Landing page sections (logged out) */
-        .landing {
-            margin-top: 18px;
-        }
-
-        .landing-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-top: 14px;
-        }
-
-        @media (min-width: 820px) {
-            .landing-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .card {
-            background: #FFFFFF;
-            border: 1px solid #CFFAFE;
-            border-radius: 14px;
-            padding: 18px;
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
-        }
-
-        .card h3 {
-            margin: 0 0 10px 0;
-            font-size: 18px;
-        }
-
-        .card p {
-            margin: 0;
-            color: #334155;
             line-height: 1.6;
+            font-size: 16px;
         }
 
-        .card ul {
-            margin: 8px 0 0 18px;
-            color: #334155;
-            line-height: 1.7;
-        }
-
-        .footer-note {
-            margin-top: 14px;
-            color: #475569;
+        .warning {
+            background: #FEF2F2;
+            border: 1px solid #FCA5A5;
+            color: #991B1B;
+            padding: 10px 12px;
+            border-radius: 12px;
             font-size: 13px;
+            line-height: 1.5;
+            margin-top: 10px;
         }
 
-        .cta-row {
-            margin-top: 8px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+        ul {
+            margin: 8px 0 0;
+            padding-left: 18px;
         }
     </style>
 </head>
@@ -193,6 +192,7 @@
         {% if user.is_authenticated %}
             <p>
                 Welcome, <strong>{{ user.username }}</strong> |
+                <a href="{% url 'profile' %}">My Profile</a> |
                 <a href="{% url 'logout' %}">Logout</a>
             </p>
         {% else %}
@@ -203,93 +203,121 @@
         {% endif %}
     </div>
 
-    {% if user.is_authenticated %}
-        <a href="{% url 'create_post' %}" class="btn">Create New Post</a>
+    {% if messages %}
+    <div style="margin-bottom:14px;">
+        {% for message in messages %}
+            <div style="background:#ECFEFF;border:1px solid #67E8F9;color:#0F172A;padding:12px 14px;border-radius:14px;margin-bottom:10px;box-shadow:0 2px 10px rgba(15, 23, 42, 0.06);">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
 
-        <div class="filters">
-            <strong>Filter by:</strong>
-            <a href="{% url 'home' %}" class="btn secondary">All</a>
-            <a href="?category=celebration" class="btn secondary">Celebration</a>
-            <a href="?category=struggle" class="btn secondary">Struggle</a>
-            <a href="?category=decision" class="btn secondary">Decision Help</a>
-            <a href="?category=grief" class="btn secondary">Grief</a>
+    <div class="card">
+        <h2 style="margin-bottom:6px;">Welcome to Haven</h2>
+        <p class="muted">
+            A place to share what you’re going through and get supportive replies — anonymously.
+        </p>
 
-            {% if selected_category %}
-                <span style="margin-left: 6px; color: #475569;">
-                    Showing: <strong style="color:#0F172A;">{{ selected_category }}</strong>
-                </span>
+        <div class="pill-row" style="margin-top:12px;">
+            {% if user.is_authenticated %}
+                <a class="btn" href="{% url 'create_post' %}">Create a post</a>
+            {% else %}
+                <a class="btn" href="{% url 'login' %}">Login to post</a>
+                <a class="btn" href="{% url 'signup' %}">Create account</a>
+            {% endif %}
+
+            {% if user.is_staff %}
+                <a class="btn secondary" href="{% url 'moderation_dashboard' %}">Moderation</a>
             {% endif %}
         </div>
 
-        <h2>Community Feed</h2>
+        <div class="warning">
+            If you are in immediate danger or considering self-harm, please contact local emergency services right now.
+            Haven is peer support and not a substitute for professional help.
+        </div>
+    </div>
 
+    <div class="two-col">
+        <div class="card">
+            <h2 style="font-size:22px;margin-bottom:6px;">How it works</h2>
+            <ul class="muted">
+                <li>Create an anonymous post in a category.</li>
+                <li>Others reply supportively (also anonymous).</li>
+                <li>Report content that feels unsafe or inappropriate.</li>
+                <li>Edit/delete your own posts and replies anytime.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2 style="font-size:22px;margin-bottom:6px;">Community guidelines</h2>
+            <ul class="muted">
+                <li>Be kind and supportive.</li>
+                <li>Avoid personal identifying info.</li>
+                <li>No harassment, hate, or threats.</li>
+                <li>Use “Report” to flag issues.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2 style="font-size:22px;margin-bottom:6px;">Browse by category</h2>
+        <p class="muted">Pick a category to randomize posts from that category.</p>
+
+        <div class="pill-row" style="margin-top:12px;">
+            <a class="pill {% if not selected_category %}active{% endif %}" href="{% url 'home' %}">All</a>
+            <a class="pill {% if selected_category == 'celebration' %}active{% endif %}" href="{% url 'home' %}?category=celebration">Celebration</a>
+            <a class="pill {% if selected_category == 'struggle' %}active{% endif %}" href="{% url 'home' %}?category=struggle">Struggle</a>
+            <a class="pill {% if selected_category == 'decision' %}active{% endif %}" href="{% url 'home' %}?category=decision">Decision Help</a>
+            <a class="pill {% if selected_category == 'grief' %}active{% endif %}" href="{% url 'home' %}?category=grief">Grief</a>
+        </div>
+
+        <p class="muted" style="margin-top:10px;">
+            Showing:
+            <strong>
+                {% if selected_category %}
+                    {{ selected_category|capfirst }}
+                {% else %}
+                    All categories
+                {% endif %}
+            </strong>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2 style="margin-bottom:6px;">Latest posts</h2>
+        <p class="muted">
+            Scroll to explore. Tap a post to open it and reply.
+        </p>
+    </div>
+
+    {% if posts %}
         {% for post in posts %}
-            <div class="post">
-                <div class="post-header">
-                    <div>
-                        <strong>{{ post.anonymous_username }}</strong> • {{ post.created_at|date:"M d, Y" }}
+            <a href="{% url 'post_detail' post.id %}" style="text-decoration:none;color:inherit;">
+                <div class="post">
+                    <div class="post-header">
+                        <div>
+                            <strong>{{ post.anonymous_username }}</strong> • {{ post.created_at|date:"M d, Y" }}
+                        </div>
+                        <span class="category">{{ post.get_category_display }}</span>
                     </div>
-                    <span class="category">{{ post.get_category_display }}</span>
+                    <div class="post-content">
+                        {{ post.content|truncatechars:280 }}
+                    </div>
+                    <p class="muted" style="margin-top:10px;">
+                        Open to view replies →
+                    </p>
                 </div>
-
-                <div class="post-content">
-                    {{ post.content }}
-                </div>
-            </div>
-        {% empty %}
-            <p>No posts yet. Be the first to share!</p>
+            </a>
         {% endfor %}
     {% else %}
-        <div class="landing">
-            <h2>Welcome to Haven</h2>
-            <p style="margin: 0; color:#334155; line-height:1.7;">
-                Haven is a supportive space where you can share what you’re going through and get peer support —
-                while staying anonymous.
-            </p>
-
-            <div class="cta-row">
-                <a href="{% url 'signup' %}" class="btn">Create an account</a>
-                <a href="{% url 'login' %}" class="btn secondary">Login</a>
-            </div>
-
-            <div class="landing-grid">
-                <div class="card">
-                    <h3>How it works</h3>
-                    <ul>
-                        <li>Sign up and log in</li>
-                        <li>Create posts anonymously (a random username is shown)</li>
-                        <li>Browse posts by category</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Our purpose</h3>
-                    <p>
-                        This platform is designed for peer support — not professional medical advice.
-                        If you’re in immediate danger or considering self-harm, contact local emergency services right away.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <h3>Privacy</h3>
-                    <p>
-                        Your posts are displayed without your real identity. We aim to keep the experience simple,
-                        respectful, and safe for everyone.
-                    </p>
-                </div>
-
-                <div class="card">
-                    <h3>Contact</h3>
-                    <p>
-                        Email: <strong>support@haven.local</strong><br/>
-                        For demo purposes, this can be replaced later with a real email/contact form.
-                    </p>
-                </div>
-            </div>
-
-            <div class="footer-note">
-                By using Haven, you agree to be respectful and avoid sharing personally identifying information.
-            </div>
+        <div class="card">
+            <p class="muted">No posts yet. Be the first to create one.</p>
+            {% if user.is_authenticated %}
+                <a class="btn" href="{% url 'create_post' %}">Create a post</a>
+            {% else %}
+                <a class="btn" href="{% url 'login' %}">Login to post</a>
+            {% endif %}
         </div>
     {% endif %}
 </body>
