@@ -11,7 +11,7 @@ Full-stack web application enabling users to share personal experiences anonymou
 
 ## Tech Stack
 - **Backend:** Python, Django 6.0.5
-- **Database:** PostgreSQL (production), SQLite (development)
+- **Database:** SQLite (development)
 - **Frontend:** HTML, CSS, JavaScript (Django templates)
 
 ## Architecture
@@ -23,7 +23,7 @@ Modular app structure following Django’s MVT pattern:
 ```bash
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install django==6.0.5
 python manage.py migrate
 python manage.py runserver
 ```
