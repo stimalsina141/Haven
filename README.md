@@ -10,7 +10,7 @@ Full-stack web application enabling users to share personal experiences anonymou
 - Responsive design with Django templates
 
 ## Tech Stack
-- **Backend:** Python, Django 5.x
+- **Backend:** Python, Django 6.0.5
 - **Database:** PostgreSQL (production), SQLite (development)
 - **Frontend:** HTML, CSS, JavaScript (Django templates)
 
